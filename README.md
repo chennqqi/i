@@ -25,7 +25,7 @@ import (
 
 func main() {
 	i.LoadJSON("i18n/ru.json") // Your file with translations.
-  i.SetLocale("ru")
+	i.SetLocale("ru")
 	fmt.Println(i.T("Hello."))
 	// Output: "Привет."
 }
