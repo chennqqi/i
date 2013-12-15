@@ -9,7 +9,7 @@ Version 0.1.0. Slightly unstable.
 {
 	"ru": {
 		"default": {
-			"Hello.": "Привет.",
+			"Hello.": "Привет."
 		}
 	}
 }
