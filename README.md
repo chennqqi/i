@@ -45,7 +45,7 @@ i.T("Name", "group", "ru")
 ```
 
 ### Translators
-Having one scope and one locale for the whole app may be OK for the smaller programs, but with the bigger systems you might get info troubles. That's where the *custom translators* come into play. You can create as many of them as you want, provide them with the source to get the translations from and the storage to keep them, set the locale and the scope, and you are ready to go.
+Having one scope and one locale for the whole app may be OK for the smaller programs, but with the bigger systems you might get into trouble. That's where the *custom translators* come into play. You can create as many of them as you want, provide them with the source to get the translations from and the storage to keep them, set the locale and the scope, and you are ready to go.
 
 ```go
 // Open your file...
