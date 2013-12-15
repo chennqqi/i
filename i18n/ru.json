@@ -1,0 +1,10 @@
+{
+	"ru": {
+		"default": {
+			"Hello.": "Привет.",
+			"How are you?": "Как дела?",
+			"Goodbye.": "Пока.",
+			"I PITY THE FOOL WHO DOESN'T MAKE USE OF I18N!": "МНЕ ЖАЛЬ ТОГО ДУРАКА, ЧТО НЕ ИСПОЛЬЗУЕТ ИНТЕРНАЦИОНАЛИЗАЦИЮ!"
+		}
+	}
+}
