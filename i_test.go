@@ -2,6 +2,7 @@ package i
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"testing"
 )
@@ -10,6 +11,10 @@ const (
 	germanXML   = "i18n/de.xml"
 	russianJSON = "i18n/ru.json"
 )
+
+func Setup() {
+	rand.Seed(int64(os.Getpid()))
+}
 
 func assert(t *testing.T, exp, got, fname string) {
 	if got != exp {
@@ -118,4 +123,51 @@ func ExampleREADME() {
 	}
 	fmt.Println(mr.T("I PITY THE FOOL WHO DOESN'T MAKE USE OF I18N!"))
 	// Output: МНЕ ЖАЛЬ ТОГО ДУРАКА, ЧТО НЕ ИСПОЛЬЗУЕТ ИНТЕРНАЦИОНАЛИЗАЦИЮ!
+}
+
+func randomString(n int) string {
+	b := make([]byte, n)
+
+	for i := 0; i < n; i++ {
+		b[i] = byte(rand.Intn(26) + 97)
+	}
+
+	return string(b)
+}
+
+func fillStorageWithData(st Storage) {
+	const (
+		nLocales      = 100
+		nScopes       = 10
+		nTranslations = 100
+		trLen         = 5
+	)
+	var (
+		locales [nLocales]string
+		scopes  [nScopes]string
+	)
+	for i := 0; i < nLocales; i++ {
+		locales[i] = randomString(2)
+	}
+	for i := 0; i < nScopes; i++ {
+		scopes[i] = randomString(10)
+	}
+	for _, locale := range locales {
+		for _, scope := range scopes {
+			for i := 0; i < nTranslations; i++ {
+				st.SetTranslation(randomString(trLen), randomString(trLen), scope, locale)
+			}
+		}
+	}
+}
+
+func BenchmarkDefaultStorage(b *testing.B) {
+	st := NewDefaultStorage()
+	fillStorageWithData(st)
+	st.SetTranslation("Пока.", "Bye.", "default", "ru")
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		st.Translation("Hello.", "default", "ru")
+	}
 }

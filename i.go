@@ -50,22 +50,22 @@ type Storage interface {
 
 // The default i's translation storage.
 type DefaultStorage struct {
-	trMap map[string]map[string]map[string]string
+	tmap map[string]map[string]map[string]string
 }
 
 // Creates a new DefaultStorage.
 func NewDefaultStorage() (storage *DefaultStorage) {
-	return &DefaultStorage{trMap: map[string]map[string]map[string]string{}}
+	return &DefaultStorage{tmap: map[string]map[string]map[string]string{}}
 }
 
 func (ts *DefaultStorage) Translation(key, scope, locale string) (string, bool) {
-	if _, ok := ts.trMap[locale]; !ok {
+	if _, ok := ts.tmap[locale]; !ok {
 		return key, ok
 	}
-	if _, ok := ts.trMap[locale][scope]; !ok {
+	if _, ok := ts.tmap[locale][scope]; !ok {
 		return key, ok
 	}
-	if translation, ok := ts.trMap[locale][scope][key]; !ok {
+	if translation, ok := ts.tmap[locale][scope][key]; !ok {
 		return key, ok
 	} else {
 		return translation, ok
@@ -73,29 +73,29 @@ func (ts *DefaultStorage) Translation(key, scope, locale string) (string, bool) 
 }
 
 func (ts *DefaultStorage) SetTranslation(translation, key, scope, locale string) error {
-	if _, ok := ts.trMap[locale]; !ok {
-		ts.trMap[locale] = map[string]map[string]string{}
+	if _, ok := ts.tmap[locale]; !ok {
+		ts.tmap[locale] = map[string]map[string]string{}
 	}
-	if _, ok := ts.trMap[locale][scope]; !ok {
-		ts.trMap[locale][scope] = map[string]string{}
+	if _, ok := ts.tmap[locale][scope]; !ok {
+		ts.tmap[locale][scope] = map[string]string{}
 	}
-	ts.trMap[locale][scope][key] = translation
+	ts.tmap[locale][scope][key] = translation
 
 	return nil
 }
 
 func (ts *DefaultStorage) DeleteLocale(locale string) error {
-	delete(ts.trMap, locale)
+	delete(ts.tmap, locale)
 	return nil
 }
 
 func (ts *DefaultStorage) DeleteScope(scope string, locale string) error {
-	delete(ts.trMap[locale], scope)
+	delete(ts.tmap[locale], scope)
 	return nil
 }
 
 func (ts *DefaultStorage) DeleteTranslation(key string, scope string, locale string) error {
-	delete(ts.trMap[locale][scope], key)
+	delete(ts.tmap[locale][scope], key)
 	return nil
 }
 

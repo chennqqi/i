@@ -1,7 +1,7 @@
 # i
 i (pronounced as in *bit*), a minimalistic yet flexible internationalization package.
 
-Version 0.1.0. Slightly unstable.
+Version 0.1.1.
 
 ## Basic Usage
 ```js
